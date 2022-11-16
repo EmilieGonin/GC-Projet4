@@ -32,7 +32,7 @@ sqlite3* createDatabase() {
 
 	sql = "CREATE TABLE IF NOT EXISTS BABY(name varchar (100));" \
 		"CREATE TABLE IF NOT EXISTS BOTTLE(quantity INT);" \
-		"CREATE TABLE IF NOT EXISTS ITEMS(quantity INT);";
+		"CREATE TABLE IF NOT EXISTS ITEMS(NAME VARCHAR(100), QUANTITY INT);";
 
 	SQL(db, sql);
 

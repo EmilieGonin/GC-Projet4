@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "db.h"
 
 class List
 {
@@ -14,6 +15,7 @@ public:
 	~List();
 	int getCurrentMilk();
 	int getMilkToBuy(int);
-	void addItem();
+	void addItem(sqlite3*);
+	auto getItems(sqlite3*);
 };
 

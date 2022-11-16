@@ -73,10 +73,10 @@ int main()
 	List list = createList();
 
 	//Le parent veut afficher la liste
-	cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity());
+	cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
 
 	//Le parent ajoute un item dans la liste
-	//
+	list.addItem(db);
 
 	//Le parent crée un biberon (heures de prise + quantité de lait ingéré)
 	Bottle bottle = createBottle(&baby);
