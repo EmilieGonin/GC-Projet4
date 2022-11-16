@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Users\egonin\Desktop\Projet4\SDL2-2.24.2\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\egonin\Desktop\Projet4\SDL2-2.24.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL2-2.24.2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)SDL2-2.24.2\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
