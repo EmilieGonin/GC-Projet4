@@ -6,9 +6,29 @@
 #include "Bottle.h"
 #include "Baby.h"
 #include "List.h"
-#include "../sqlite/sqlite3.h"
+//#include "SDL.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
+
+#include "../sqlite/sqlite3.h"
+
+sqlite3* createDatabase() {
+	sqlite3* db;
+	char* error = 0;
+	int rc = sqlite3_open("projet4.db", &db);
+
+	if (rc) {
+		cerr << "Can't open database: %s\n";
+	}
+	else {
+		fprintf(stderr, "Opened database successfully\n");
+	}
+
+	int babyTable = sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS BABY(name varchar (100));", NULL, NULL, &error);
+	return db;
+}
 
 Baby createBaby() {
 	string name;
@@ -58,7 +78,10 @@ List createList() {
 }
 
 int main()
-{                                                                                                                                                                        
+{            
+	//Création base de données
+	sqlite3* db = createDatabase();
+
 	//Le parent ouvre l'appli
 	Baby baby = createBaby();
 
@@ -85,6 +108,9 @@ int main()
 	bottle.regurgitate();
 	cout << "\ngetDrank : " << bottle.baby->getDrankQuantity()
 		<< "\nWeekly Milk Quantity : " << bottle.baby->getWeeklyMilkQuantity();
+
+	sqlite3_close(db);
+	return 0;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
