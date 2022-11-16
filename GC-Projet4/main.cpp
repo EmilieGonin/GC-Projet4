@@ -6,6 +6,7 @@
 #include "Bottle.h"
 #include "Baby.h"
 #include "List.h"
+#include "../sqlite/sqlite3.h"
 
 using namespace std;
 
