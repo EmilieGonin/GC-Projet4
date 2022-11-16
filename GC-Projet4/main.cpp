@@ -6,9 +6,10 @@
 #include "Bottle.h"
 #include "Baby.h"
 #include "List.h"
-//#include "SDL.h"
+#include "SDL.h"
 #include <stdio.h>
 #include <stdlib.h>
+#undef main //remove _main function from SDL cause it breaks everything
 
 using namespace std;
 
@@ -77,7 +78,7 @@ List createList() {
 	return list;
 }
 
-int main()
+int main() 
 {            
 	//Création base de données
 	sqlite3* db = createDatabase();
