@@ -36,9 +36,6 @@
     <ClCompile Include="..\sqlite\sqlite3.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Baby.h">
@@ -49,9 +46,6 @@
     </ClInclude>
     <ClInclude Include="List.h">
       <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="window.h">
-      <Filter>Fichiers sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
