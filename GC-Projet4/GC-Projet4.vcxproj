@@ -70,6 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>C:\Users\egonin\Desktop\Projet4\SDL2-2.24.2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\egonin\Desktop\Projet4\SDL2-2.24.2\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -108,6 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -131,6 +136,7 @@
     <ClCompile Include="..\sqlite\sqlite3.c" />
     <ClCompile Include="Baby.cpp" />
     <ClCompile Include="Bottle.cpp" />
+    <ClCompile Include="db.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
@@ -138,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Baby.h" />
     <ClInclude Include="Bottle.h" />
+    <ClInclude Include="db.h" />
     <ClInclude Include="List.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

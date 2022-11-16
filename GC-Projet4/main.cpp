@@ -3,32 +3,16 @@
 
 #include <iostream>
 #include <ctime>
+#include "db.h"
 #include "Bottle.h"
 #include "Baby.h"
 #include "List.h"
-//#include "SDL.h"
+#include "SDL.h"
 #include <stdio.h>
 #include <stdlib.h>
+#undef main //remove _main function from SDL cause it breaks everything
 
 using namespace std;
-
-#include "../sqlite/sqlite3.h"
-
-sqlite3* createDatabase() {
-	sqlite3* db;
-	char* error = 0;
-	int rc = sqlite3_open("projet4.db", &db);
-
-	if (rc) {
-		cerr << "Can't open database: %s\n";
-	}
-	else {
-		fprintf(stderr, "Opened database successfully\n");
-	}
-
-	int babyTable = sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS BABY(name varchar (100));", NULL, NULL, &error);
-	return db;
-}
 
 Baby createBaby() {
 	string name;
@@ -77,7 +61,7 @@ List createList() {
 	return list;
 }
 
-int main()
+int main() 
 {            
 	//Création base de données
 	sqlite3* db = createDatabase();
@@ -89,10 +73,14 @@ int main()
 	List list = createList();
 
 	//Le parent veut afficher la liste
-	cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity());
+	list.getItems(db);
+	//cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
 
 	//Le parent ajoute un item dans la liste
-	//
+	list.addItem(db);
+
+	//Le parent veut afficher la liste
+	list.getItems(db);
 
 	//Le parent crée un biberon (heures de prise + quantité de lait ingéré)
 	Bottle bottle = createBottle(&baby);

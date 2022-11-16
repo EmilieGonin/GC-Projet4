@@ -32,12 +32,24 @@ int List::getMilkToBuy(int weekly_milk) {
 	}
 }
 
-void List::addItem() {
+void List::addItem(sqlite3* db) {
 	std::string name;
 	int quantity;
 
 	std::cout << "Item name : ";
 	std::cin >> name;
-	std::cout << "Item quantity : ";
+	std::cout << "Name : " << name << "\nItem quantity : ";
 	std::cin >> quantity;
+	std::cout << "Quantity : " << quantity << "\n";
+
+	std::string quantity_s = std::to_string(quantity);
+	std::string sql_s = std::string("INSERT INTO ITEMS(NAME,QUANTITY) VALUES ('" + name + "', " + quantity_s + ");");
+	const char* sql = sql_s.c_str();
+
+	SQL(db, sql);
+}
+
+void List::getItems(sqlite3* db) {
+	const char* sql = "SELECT * FROM ITEMS";
+	dataSQL(db, sql);
 }
