@@ -8,10 +8,10 @@ void SQL(sqlite3* db, const char* sql) {
 	int rc = sqlite3_exec(db, sql, NULL, NULL, &error);
 
 	if (rc) {
-		cerr << "SQL error: %s\n";
+		cerr << "--> SQL error: %s\n";
 	}
 	else {
-		cout << "SQL done !\n";
+		cout << sql << "\n--> SQL done !\n";
 	}
 }
 
