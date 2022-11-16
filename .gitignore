@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # database
 *.db
+/GC-Projet4/projet4.db
