@@ -63,7 +63,9 @@ int main()
 
 	//Le parent utilise la fonctionnalité de liste
 	List list = createList();
-	cout << list.getCurrentMilk();
+
+	//Le parent veut afficher la liste
+	cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity());
 
 	//Le parent ajoute un item dans la liste
 	//
