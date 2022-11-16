@@ -1,13 +1,23 @@
 #include "List.h"
 
-List::List(int currentMilk) {
-	this->currentMilk = currentMilk;
+
+List::List() {
+	this->currentMilk = 0;
 	this->warning = 0;
 	this->warning_message = "You don't have enough milk for the next 7 days.";
 }
 
+List::List(int currentMilk) {
+	this->List::List();
+	this->currentMilk = currentMilk;
+}
+
 List::~List() {
 	//
+}
+
+int List::getCurrentMilk() {
+	return this->currentMilk;
 }
 
 int List::getMilkToBuy(int weekly_milk) {
