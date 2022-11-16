@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Baby createBaby() {
+Baby createBaby(sqlite3* db) {
 	string name;
 	int min_quantity, bottle_quantity, take;
 
@@ -27,7 +27,7 @@ Baby createBaby() {
 	cout << "Now, enter the default quantity of your bottles : ";
 	cin >> bottle_quantity;
 
-	Baby baby(min_quantity, bottle_quantity, take, name);
+	Baby baby(min_quantity, bottle_quantity, take, name, db);
 	return baby;
 	// ajouter conditions
 }
@@ -67,7 +67,7 @@ int main()
 	sqlite3* db = createDatabase();
 
 	//Le parent ouvre l'appli
-	Baby baby = createBaby();
+	Baby baby = createBaby(db);
 
 	//Le parent utilise la fonctionnalité de liste
 	List list = createList();

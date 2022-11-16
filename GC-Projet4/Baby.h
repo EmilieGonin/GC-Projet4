@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "db.h"
 
 class Baby
 {
@@ -10,7 +11,7 @@ public:
 	int drank_quantity;
 	std::string name;
 	Baby();
-	Baby(int, int, int, std::string);
+	Baby(int, int, int, std::string, sqlite3*);
 	~Baby();
 
 	int getMinQuantity();

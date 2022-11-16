@@ -28,7 +28,7 @@ void SQL(sqlite3* db, const char* sql) {
 	int rc = sqlite3_exec(db, sql, NULL, NULL, &error);
 
 	if (rc) {
-		cerr << "--> SQL error: %s\n";
+		cerr << sql << "\n--> SQL error\n";
 	}
 	else {
 		cout << sql << "\n--> SQL done !\n";
@@ -55,7 +55,7 @@ sqlite3* createDatabase() {
 
 	cout << "Creating tables...\n";
 
-	sql = "CREATE TABLE IF NOT EXISTS BABY(ID INTEGER PRIMARY KEY NOT NULL, MIN_QUANTITY INT, TAKE INT, BOTTLE_QUANTITY INT, NAME VARCHAR(100));" \
+	sql = "CREATE TABLE IF NOT EXISTS BABIES(ID INTEGER PRIMARY KEY NOT NULL, MIN_QUANTITY INT, TAKE INT, BOTTLE_QUANTITY INT, NAME VARCHAR(100));" \
 		"CREATE TABLE IF NOT EXISTS BOTTLE(ID INTEGER PRIMARY KEY NOT NULL, QUANTITY INT, TIMER INT, HOUR INT, INTERVAL INT, REGURGITATED BOOLEAN);" \
 		"CREATE TABLE IF NOT EXISTS ITEMS(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), QUANTITY INT);";
 
