@@ -48,3 +48,8 @@ void List::addItem(sqlite3* db) {
 
 	SQL(db, sql);
 }
+
+void List::getItems(sqlite3* db) {
+	const char* sql = "SELECT * FROM ITEMS";
+	dataSQL(db, sql);
+}

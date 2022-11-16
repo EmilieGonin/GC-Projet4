@@ -3,6 +3,18 @@
 
 using namespace std;
 
+static int callback(void* data, int argc, char** argv, char** azColName) {
+	int i;
+	fprintf(stderr, "%s: ", (const char*)data);
+
+	for (i = 0; i < argc; i++) {
+		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+	}
+
+	printf("\n");
+	return 0;
+}
+
 void SQL(sqlite3* db, const char* sql) {
 	char* error = 0;
 	int rc = sqlite3_exec(db, sql, NULL, NULL, &error);
@@ -13,6 +25,11 @@ void SQL(sqlite3* db, const char* sql) {
 	else {
 		cout << sql << "\n--> SQL done !\n";
 	}
+}
+
+void dataSQL(sqlite3* db, const char* sql) {
+	char* error = 0;
+	int rc = sqlite3_exec(db, sql, callback, NULL, &error);
 }
 
 sqlite3* createDatabase() {
@@ -30,9 +47,9 @@ sqlite3* createDatabase() {
 
 	cout << "Creating tables...\n";
 
-	sql = "CREATE TABLE IF NOT EXISTS BABY(name varchar (100));" \
-		"CREATE TABLE IF NOT EXISTS BOTTLE(quantity INT);" \
-		"CREATE TABLE IF NOT EXISTS ITEMS(NAME VARCHAR(100), QUANTITY INT);";
+	sql = "CREATE TABLE IF NOT EXISTS BABY(ID INTEGER PRIMARY KEY NOT NULL, MIN_QUANTITY INT, TAKE INT, BOTTLE_QUANTITY INT, NAME VARCHAR(100));" \
+		"CREATE TABLE IF NOT EXISTS BOTTLE(ID INTEGER PRIMARY KEY NOT NULL, QUANTITY INT, TIMER INT, HOUR INT, INTERVAL INT, REGURGITATED BOOLEAN);" \
+		"CREATE TABLE IF NOT EXISTS ITEMS(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), QUANTITY INT);";
 
 	SQL(db, sql);
 
