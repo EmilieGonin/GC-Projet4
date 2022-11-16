@@ -1,14 +1,22 @@
 #include <iostream>
+#include <string>
 #include "db.h"
 
 using namespace std;
 
 static int callback(void* data, int argc, char** argv, char** azColName) {
 	int i;
-	fprintf(stderr, "%s: ", (const char*)data);
 
 	for (i = 0; i < argc; i++) {
-		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+		if (std::string(azColName[i]) != "ID") {
+			if (std::string(azColName[i]) == "QUANTITY") {
+				cout << " (x" << argv[i] << ")";
+			}
+			else {
+				cout << "- " << argv[i];
+			}
+			//printf("%s\n", argv[i]);
+		}
 	}
 
 	printf("\n");
