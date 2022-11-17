@@ -9,10 +9,10 @@ class Window
 {
 public:
 	bool init();
-	bool loadMedia();
 	void destroy();
 	int WindowEvent();
-	bool draw();
+	bool homeView();
+	bool view2();
 	bool refreshRender();
 	Window();
 	~Window();

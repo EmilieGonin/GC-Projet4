@@ -31,7 +31,7 @@ bool Window::init() {
 	else
 	{
 		//Create window
-		this->window = SDL_CreateWindow("Une fenetre SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->WINDOW_WIDTH, this->WINDOW_HEIGHT);
+		this->window = SDL_CreateWindow("Une fenetre SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->WINDOW_WIDTH, this->WINDOW_HEIGHT,NULL);
 		this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); // Création du renderer
 		if (this->window == NULL)
 		{
@@ -47,10 +47,6 @@ bool Window::init() {
 	return this->succes;
 }
 
-bool Window::loadMedia() {
-	return this->succes;
-}
-
 void Window::destroy() {
 
 	SDL_DestroyRenderer(this->renderer);
@@ -61,7 +57,7 @@ void Window::destroy() {
 	SDL_Quit();
 }
 
-bool Window::draw() {
+bool Window::homeView() {
 
 	SDL_RenderClear(this->renderer);
 	SDL_SetRenderDrawColor(this->renderer, 200, 50, 100, 255);
@@ -72,9 +68,25 @@ bool Window::draw() {
 	return this->succes;
 }
 
+bool Window::view2() {
+
+
+	SDL_SetRenderDrawColor(this->renderer, 000, 000, 000, 255);
+	SDL_RenderClear(this->renderer);
+	SDL_SetRenderDrawColor(this->renderer, 100, 150, 200, 55);
+	SDL_Rect rectangle{ 0,0,this->WINDOW_WIDTH,this->WINDOW_HEIGHT };
+	SDL_RenderFillRect(this->renderer, &rectangle);
+	SDL_SetRenderDrawColor(this->renderer, 200, 150, 130, 255);
+	SDL_Rect rectangle1{ 25,25,this->WINDOW_WIDTH - 50,this->WINDOW_HEIGHT - 50 };
+	SDL_RenderDrawRect(this->renderer, &rectangle1);
+	SDL_Rect rectangle2{ 50,50,200,200 };
+	SDL_RenderFillRect(this->renderer, &rectangle2);
+
+	return this->succes;
+}
+
 int Window::WindowEvent() {
 	SDL_Event event;
-	int fullscreen = 0;
 	while (SDL_PollEvent(&event)) // Récupération des actions de l'utilisateur
 	{
 		switch (event.type)
@@ -83,19 +95,14 @@ int Window::WindowEvent() {
 			this->running = false;
 			break;
 		case SDL_KEYUP: // Relâchement d'une touche
-			if (event.key.keysym.sym == SDLK_f) // Touche f
+			if (event.key.keysym.sym == SDLK_2) // Touche 0
 			{
-				// Alterne du mode plein écran au mode fenêtré
-				if (fullscreen == 0)
-				{
-					fullscreen = 1;
-					SDL_SetWindowFullscreen(this->window, SDL_WINDOW_FULLSCREEN);
-				}
-				else if (fullscreen == 1)
-				{
-					fullscreen = 0;
-					SDL_SetWindowFullscreen(this->window, 0);
-				}
+				this->view2();
+			}
+			break;
+			if (event.key.keysym.sym == SDLK_1) // Touche 1
+			{
+				this->homeView();
 			}
 			break;
 		}

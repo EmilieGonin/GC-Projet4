@@ -64,23 +64,23 @@ List createList() {
 
 int main()
 {
-
+	SDL_Event event;
 	Window window ;
 
 	window.init();
-	
-	int fullscreen = 0;
-	string key;
+	int gradx = 0;
+	int grady = 0;
 
-	window.draw();
+	window.homeView();
+	
 
 	while (window.running)
 	{
 		window.WindowEvent();
 		window.refreshRender();
+		
+		
 		/*
-		cin >> key;
-		if (key == "a") {
 			//Création base de données
 			sqlite3* db = createDatabase();
 
@@ -117,7 +117,7 @@ int main()
 
 			sqlite3_close(db);
 
-		}*/
+		*/
 
 	}
 	
