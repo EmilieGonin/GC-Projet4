@@ -7,6 +7,7 @@
 #include "Bottle.h"
 #include "Baby.h"
 #include "List.h"
+#include "window.h"
 #include "SDL.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,45 +62,75 @@ List createList() {
 	return list;
 }
 
-int main() 
-{            
-	//Création base de données
-	sqlite3* db = createDatabase();
+int main()
+{
 
-	//Le parent ouvre l'appli
-	Baby baby = createBaby();
+	Window window ;
 
-	//Le parent utilise la fonctionnalité de liste
-	List list = createList();
+	window.init();
+	
+	int fullscreen = 0;
+	string key;
 
-	//Le parent veut afficher la liste
-	list.getItems(db);
-	//cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
+	window.draw();
 
-	//Le parent ajoute un item dans la liste
-	list.addItem(db);
+	while (window.running)
+	{
+		window.WindowEvent();
+		window.refreshRender();
+		/*
+		cin >> key;
+		if (key == "a") {
+			//Création base de données
+			sqlite3* db = createDatabase();
 
-	//Le parent veut afficher la liste
-	list.getItems(db);
+			//Le parent ouvre l'appli
+			Baby baby = createBaby();
 
-	//Le parent crée un biberon (heures de prise + quantité de lait ingéré)
-	Bottle bottle = createBottle(&baby);
+			//Le parent utilise la fonctionnalité de liste
+			List list = createList();
 
-	//Vérification alarme (SDL)
-	//l'heure actuelle
-	//if (heure actuelle >= (bottle.hour + bottle.interval)) { afficher rappel }
+			//Le parent veut afficher la liste
+			list.getItems(db);
+			//cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
 
-	// Création test d'une seconde bouteille
-	Bottle bottle2 = createBottle(&baby);
+			//Le parent ajoute un item dans la liste
+			list.addItem(db);
 
-	//Le bébé regurgite
-	bottle.regurgitate();
-	cout << "\ngetDrank : " << bottle.baby->getDrankQuantity()
-		<< "\nWeekly Milk Quantity : " << bottle.baby->getWeeklyMilkQuantity();
+			//Le parent veut afficher la liste
+			list.getItems(db);
 
-	sqlite3_close(db);
+			//Le parent crée un biberon (heures de prise + quantité de lait ingéré)
+			Bottle bottle = createBottle(&baby);
+
+			//Vérification alarme (SDL)
+			//l'heure actuelle
+			//if (heure actuelle >= (bottle.hour + bottle.interval)) { afficher rappel }
+
+			// Création test d'une seconde bouteille
+			Bottle bottle2 = createBottle(&baby);
+
+			//Le bébé regurgite
+			bottle.regurgitate();
+			cout << "\ngetDrank : " << bottle.baby->getDrankQuantity()
+				<< "\nWeekly Milk Quantity : " << bottle.baby->getWeeklyMilkQuantity();
+
+			sqlite3_close(db);
+
+		}*/
+
+	}
+	
+	
+	
+	window.destroy();
+
 	return 0;
 }
+
+	
+	
+
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
 // Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
