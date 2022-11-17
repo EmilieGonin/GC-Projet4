@@ -1,13 +1,20 @@
 #include <iostream>
 #include <string>
 #include "db.h"
+#include <vector>
 
 using namespace std;
 
-static int callback(void* data, int argc, char** argv, char** azColName) {
+int callback(void* data, int argc, char** argv, char** azColName) {
 	int i;
+	std::vector<Element>* p_data = static_cast<std::vector<Element>*>(data);
 
 	for (i = 0; i < argc; i++) {
+		Element element;
+		element.name = std::string(azColName[i]);
+		element.data = std::string(argv[i]);
+		p_data->push_back(element);
+
 		if (std::string(azColName[i]) != "ID") {
 			if (std::string(azColName[i]) == "QUANTITY") {
 				cout << " (x" << argv[i] << ")";
@@ -35,9 +42,12 @@ void SQL(sqlite3* db, const char* sql) {
 	}
 }
 
-void dataSQL(sqlite3* db, const char* sql) {
+std::vector<Element> dataSQL(sqlite3* db, const char* sql) {
+	std::vector<Element> data;
 	char* error = 0;
-	int rc = sqlite3_exec(db, sql, callback, NULL, &error);
+	int rc = sqlite3_exec(db, sql, callback, &data, &error);
+
+	return data;
 }
 
 sqlite3* createDatabase() {

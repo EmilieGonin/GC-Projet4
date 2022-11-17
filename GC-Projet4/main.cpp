@@ -18,14 +18,36 @@ Baby createBaby(sqlite3* db) {
 	string name;
 	int min_quantity, bottle_quantity, take;
 
-	cout << "Hello ! What is the name of your baby ? ";
-	cin >> name;
-	cout << "What a cute name ! Now, enter the minimum quantity the baby must drink each time : ";
-	cin >> min_quantity;
-	cout << "Now, enter the number of bottle your baby needs to take : ";
-	cin >> take;
-	cout << "Now, enter the default quantity of your bottles : ";
-	cin >> bottle_quantity;
+	//On va chercher 
+
+	const char* sql = "SELECT * FROM BABIES";
+	std::vector<Element> data = dataSQL(db, sql);
+	bool existingBaby = data.size();
+
+	if (existingBaby) {
+		cout << "Baby found !\n";
+		min_quantity = stoi(data[1].data);
+		bottle_quantity = stoi(data[2].data);
+		take = stoi(data[3].data);
+		name = data[4].data;
+		cout << name;
+	}
+	else {
+		cout << "Hello ! What is the name of your baby ? ";
+		cin >> name;
+		cout << "What a cute name ! Now, enter the minimum quantity the baby must drink each time : ";
+		cin >> min_quantity;
+		cout << "Now, enter the number of bottle your baby needs to take : ";
+		cin >> take;
+		cout << "Now, enter the default quantity of your bottles : ";
+		cin >> bottle_quantity;
+
+		std::string sql = std::string(
+			"INSERT INTO BABIES(MIN_QUANTITY,TAKE,BOTTLE_QUANTITY,NAME)"\
+			"VALUES(" + std::to_string(min_quantity) + ", " + std::to_string(take) + ", " + std::to_string(bottle_quantity) + ", '" + name + "');");
+
+		SQL(db, sql.c_str());
+	}
 
 	Baby baby(min_quantity, bottle_quantity, take, name, db);
 	return baby;
