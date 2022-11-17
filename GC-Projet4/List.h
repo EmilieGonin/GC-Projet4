@@ -8,6 +8,7 @@ class List
 protected:
 	int currentMilk;
 	bool warning;
+	//std::vector<std::vector> items;
 public:
 	std::string warning_message;
 	List();

@@ -1,23 +1,23 @@
 #include <iostream>
 #include <string>
 #include "db.h"
+#include <vector>
 
 using namespace std;
 
-static int callback(void* data, int argc, char** argv, char** azColName) {
+int callback(void* datas, int argc, char** argv, char** azColName) {
 	int i;
+	vector<vector<Element>>* p_datas = static_cast<vector<vector<Element>>*>(datas);
+	vector<Element> data;
 
 	for (i = 0; i < argc; i++) {
-		if (std::string(azColName[i]) != "ID") {
-			if (std::string(azColName[i]) == "QUANTITY") {
-				cout << " (x" << argv[i] << ")";
-			}
-			else {
-				cout << "- " << argv[i];
-			}
-			//printf("%s\n", argv[i]);
-		}
+		Element element;
+		element.name = string(azColName[i]);
+		element.data = string(argv[i]);
+		data.push_back(element);
 	}
+
+	p_datas->push_back(data);
 
 	printf("\n");
 	return 0;
@@ -28,16 +28,19 @@ void SQL(sqlite3* db, const char* sql) {
 	int rc = sqlite3_exec(db, sql, NULL, NULL, &error);
 
 	if (rc) {
-		cerr << "--> SQL error: %s\n";
+		cerr << sql << "\n--> SQL error\n";
 	}
 	else {
 		cout << sql << "\n--> SQL done !\n";
 	}
 }
 
-void dataSQL(sqlite3* db, const char* sql) {
+std::vector<std::vector<Element>> dataSQL(sqlite3* db, const char* sql) {
+	std::vector<std::vector<Element>> datas;
 	char* error = 0;
-	int rc = sqlite3_exec(db, sql, callback, NULL, &error);
+	int rc = sqlite3_exec(db, sql, callback, &datas, &error);
+
+	return datas;
 }
 
 sqlite3* createDatabase() {
@@ -55,9 +58,9 @@ sqlite3* createDatabase() {
 
 	cout << "Creating tables...\n";
 
-	sql = "CREATE TABLE IF NOT EXISTS BABY(ID INTEGER PRIMARY KEY NOT NULL, MIN_QUANTITY INT, TAKE INT, BOTTLE_QUANTITY INT, NAME VARCHAR(100));" \
-		"CREATE TABLE IF NOT EXISTS BOTTLE(ID INTEGER PRIMARY KEY NOT NULL, QUANTITY INT, TIMER INT, HOUR INT, INTERVAL INT, REGURGITATED BOOLEAN);" \
-		"CREATE TABLE IF NOT EXISTS ITEMS(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), QUANTITY INT);";
+	sql = "CREATE TABLE IF NOT EXISTS BABIES(ID INTEGER PRIMARY KEY NOT NULL, MIN_QUANTITY INT, TAKE INT, BOTTLE_QUANTITY INT, NAME VARCHAR(100));" \
+		"CREATE TABLE IF NOT EXISTS BOTTLES(ID INTEGER PRIMARY KEY NOT NULL, QUANTITY INT, HOUR INT, MINUTES INT, INTERVAL INT, REGURGITATED INT);" \
+		"CREATE TABLE IF NOT EXISTS LIST(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), QUANTITY INT);";
 
 	SQL(db, sql);
 

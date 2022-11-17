@@ -7,7 +7,7 @@ Baby::Baby() {
 	this->name = "Test";
 }
 
-Baby::Baby(int min_quantity, int bottle_quantity, int take, std::string name) {
+Baby::Baby(int min_quantity, int bottle_quantity, int take, std::string name, sqlite3* db) {
 	this->drank_quantity = 0;
 
 	this->min_quantity = min_quantity;
