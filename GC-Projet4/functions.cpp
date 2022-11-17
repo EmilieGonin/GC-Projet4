@@ -35,18 +35,19 @@ Baby createBaby(sqlite3* db) {
 		cout << "Now, enter the default quantity of your bottles : ";
 		cin >> bottle_quantity;
 
-		std::string sql = std::string(
+		string sql = string(
 			"INSERT INTO BABIES(MIN_QUANTITY,TAKE,BOTTLE_QUANTITY,NAME)"\
-			"VALUES(" + std::to_string(min_quantity) + ", " + std::to_string(take) + ", " + std::to_string(bottle_quantity) + ", '" + name + "');");
+			"VALUES(" + to_string(min_quantity) + ", " + to_string(take) + ", " + to_string(bottle_quantity) + ", '" + name + "');");
 
 		SQL(db, sql.c_str());
 	}
 
+	cout << "----------" << endl;
 	Baby baby(min_quantity, bottle_quantity, take, name, db);
 	return baby;
 }
 
-Bottle createBottle(Baby* baby) {
+Bottle createBottle(sqlite3* db, Baby* baby) {
 	int quantity, hour, minutes, interval;
 
 	cout << "Enter the quantity drank : ";
@@ -58,6 +59,13 @@ Bottle createBottle(Baby* baby) {
 	cout << "Enter the interval for the alarm : ";
 	cin >> interval;
 
+	string sql = string(
+		"INSERT INTO BOTTLES(QUANTITY, HOUR, MINUTES, INTERVAL, REGURGITATED)"\
+		"VALUES(" + to_string(quantity) + ", " + to_string(hour) + ", " + to_string(minutes) + ", " + to_string(interval) + ", 0);");
+
+	SQL(db, sql.c_str());
+
+	cout << "----------" << endl;
 	Bottle bottle(quantity, hour, interval, baby);
 	return bottle;
 	/* quantity doit être entre min_quantity et bottle_quantity
@@ -81,11 +89,12 @@ List createList(sqlite3* db) {
 		cout << "List not found ! Enter your current stock of milk : ";
 		cin >> currentMilk;
 
-		std::string sql = std::string("INSERT INTO LIST(NAME,QUANTITY) VALUES ('milk', " + std::to_string(currentMilk) + ");");
+		string sql = string("INSERT INTO LIST(NAME,QUANTITY) VALUES ('milk', " + to_string(currentMilk) + ");");
 
 		SQL(db, sql.c_str());
 	}
 
+	cout << "----------" << endl;
 	List list(currentMilk);
 	return list;
 }

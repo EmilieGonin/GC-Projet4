@@ -14,6 +14,7 @@ Bottle::Bottle(int quantity, int hour, int interval, Baby* baby) {
 	this->baby = baby;
 	this->baby->setDrankQuantity(quantity);
 	cout << "Quantity after set : " << this->baby->drank_quantity << "\n";
+	cout << "----------" << endl;
 }
 
 Bottle::~Bottle() {}

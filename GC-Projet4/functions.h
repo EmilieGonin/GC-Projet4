@@ -9,5 +9,5 @@
 using namespace std;
 
 Baby createBaby(sqlite3* db);
-Bottle createBottle(Baby* baby);
+Bottle createBottle(sqlite3* db, Baby* baby);
 List createList(sqlite3* db);

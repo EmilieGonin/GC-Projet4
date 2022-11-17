@@ -22,29 +22,30 @@ int main()
 	cout << "Checking for list...\n";
 	List list = createList(db);
 
-	//Le parent veut afficher la liste
-	//list.getItems(db);
-	//cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
-
 	//Le parent ajoute un item dans la liste
+	//cout << "Adding item...";
 	//list.addItem(db);
 
 	//Le parent veut afficher la liste
+	//cout << "Fetching items...";
 	//list.getItems(db);
+	//cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
 
 	//Le parent crée un biberon (heures de prise + quantité de lait ingéré)
-	Bottle bottle = createBottle(&baby);
+	cout << "Creating bottle...\n";
+	Bottle bottle = createBottle(db, &baby);
 
 	//Vérification alarme (SDL)
 	//l'heure actuelle
 	//if (heure actuelle >= (bottle.hour + bottle.interval)) { afficher rappel }
 
 	// Création test d'une seconde bouteille
-	Bottle bottle2 = createBottle(&baby);
+	//Bottle bottle2 = createBottle(&baby);
 
 	//Le bébé regurgite
+	cout << "Regurgitating...\n";
 	bottle.regurgitate();
-	cout << "\ngetDrank : " << bottle.baby->getDrankQuantity()
+	cout << "\nQuantity after regurgitate: " << bottle.baby->getDrankQuantity()
 		<< "\nWeekly Milk Quantity : " << bottle.baby->getWeeklyMilkQuantity();
 
 	sqlite3_close(db);
