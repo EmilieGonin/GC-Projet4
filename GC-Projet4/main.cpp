@@ -73,13 +73,13 @@ int main()
 
 	window.homeView();
 	
-
+	
 	while (window.running)
 	{
 		window.WindowEvent();
+		window.renderText("/Roboto/Robot-Bold");
 		window.refreshRender();
-		
-		
+				
 		/*
 			//Création base de données
 			sqlite3* db = createDatabase();

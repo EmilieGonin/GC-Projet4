@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "SDL.h"
+#include "SDL_ttf.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include"window.h"
@@ -14,7 +15,9 @@ Window::Window()
 	this->succes = true;
 	this->window = NULL;
 	this->renderer = NULL;
-	this->surface = NULL;
+	//this->surfaceMessage = NULL;
+	//this->Message = NULL;
+
 }
 
 Window::~Window(){}
@@ -52,9 +55,9 @@ void Window::destroy() {
 	SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
 	SDL_Quit(); // On quitte la SDL
-
-	//Quit SDL subsystems
-	SDL_Quit();
+	//SDL_FreeSurface(surfaceMessage);
+	//SDL_DestroyTexture(Message);
+	
 }
 
 bool Window::homeView() {
@@ -85,6 +88,54 @@ bool Window::view2() {
 	return this->succes;
 }
 
+
+bool Window::renderText(const std::string &font_path) {
+	
+	//this opens a font style and sets a size
+	TTF_Font* Sans = TTF_OpenFont(font_path.c_str(), 24);
+	if (!Sans)
+	{
+		std::cout << "failed to load font" << std::endl;
+	}
+
+	// this is the color in rgb format,
+	// maxing out all would give you the color white,
+	// and it will be your text's color
+	SDL_Color White = { 255, 255, 255 };
+
+	// as TTF_RenderText_Solid could only be used on
+	// SDL_Surface then you have to create the surface first
+	auto surfaceMessage = TTF_RenderText_Solid(Sans, "hello world", White);
+	if (!surfaceMessage)
+	{
+		std::cout << "failed to create text surface" << std::endl;
+
+	}
+
+	// now you can convert it into a texture
+	auto Message = SDL_CreateTextureFromSurface(this->renderer, surfaceMessage);
+	if (!Message)
+	{
+		std::cout << "failed to create text texture" << std::endl;
+
+	}
+
+	SDL_Rect Message_rect;
+	Message_rect.x = 0;  
+	Message_rect.y = 0; 
+	Message_rect.w = 100; 
+	Message_rect.h = 100; 
+
+	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
+	// Don't forget to free your surface and texture
+	//SDL_FreeSurface(surfaceMessage);
+	return this->succes;
+
+}
+
+
+
 int Window::WindowEvent() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) // Récupération des actions de l'utilisateur
@@ -108,7 +159,6 @@ int Window::WindowEvent() {
 		}
 	}
 	return 0;
-
 }
 
 
