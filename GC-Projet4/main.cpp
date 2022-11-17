@@ -19,6 +19,7 @@ int main()
 	Baby baby = createBaby(db);
 
 	//Le parent utilise la fonctionnalité de liste
+	cout << "Checking for list...\n";
 	List list = createList(db);
 
 	//Le parent veut afficher la liste
@@ -26,7 +27,7 @@ int main()
 	//cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
 
 	//Le parent ajoute un item dans la liste
-	list.addItem(db);
+	//list.addItem(db);
 
 	//Le parent veut afficher la liste
 	//list.getItems(db);

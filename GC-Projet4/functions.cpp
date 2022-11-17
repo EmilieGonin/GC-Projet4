@@ -21,7 +21,7 @@ Baby createBaby(sqlite3* db) {
 		{
 			for (int j = 0; j < datas[i].size(); j++) {
 				cout << datas[i][j].name
-					<< " : " << datas[i][j].data << "\n";
+					<< " : " << datas[i][j].data << endl;
 			}
 		}
 	}
@@ -44,7 +44,6 @@ Baby createBaby(sqlite3* db) {
 
 	Baby baby(min_quantity, bottle_quantity, take, name, db);
 	return baby;
-	// ajouter conditions
 }
 
 Bottle createBottle(Baby* baby) {
@@ -69,24 +68,23 @@ Bottle createBottle(Baby* baby) {
 List createList(sqlite3* db) {
 	int currentMilk;
 
-	//const char* sql = "SELECT * FROM LIST";
-	//vector<vector<Element>> datas = dataSQL(db, sql);
-	//bool existingList = datas.size();
+	const char* sql = "SELECT * FROM LIST";
+	vector<vector<Element>> datas = dataSQL(db, sql);
+	bool existingList = datas.size();
 
-	//if (existingList) {
-	//	cout << "List found !\n";
-	//	for (int i = 0; i < existingList; i++)
-	//	{
-	//		//cout << datas[i].name << "\n" << data[i].data;
-	//	}
-	//	cout << "\nEnd of list";
-	//}
-	//else {
-	//	cout << "List not found !\n";
-	//}
+	if (existingList) {
+		cout << "List found !\n";
+		currentMilk = stoi(datas[0][2].data);
+		cout << "currentMilk : " << currentMilk << endl;
+	}
+	else {
+		cout << "List not found ! Enter your current stock of milk : ";
+		cin >> currentMilk;
 
-	cout << "Enter your current stock of milk : ";
-	cin >> currentMilk;
+		std::string sql = std::string("INSERT INTO LIST(NAME,QUANTITY) VALUES ('milk', " + std::to_string(currentMilk) + ");");
+
+		SQL(db, sql.c_str());
+	}
 
 	List list(currentMilk);
 	return list;
