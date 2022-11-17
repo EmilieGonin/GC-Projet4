@@ -8,6 +8,7 @@ class List
 protected:
 	int currentMilk;
 	bool warning;
+	//std::vector<std::vector> items;
 public:
 	std::string warning_message;
 	List();
@@ -16,6 +17,6 @@ public:
 	int getCurrentMilk();
 	int getMilkToBuy(int);
 	void addItem(sqlite3*);
-	std::vector<Element> getItems(sqlite3*);
+	vector<vector<Element>> getItems(sqlite3*);
 };
 

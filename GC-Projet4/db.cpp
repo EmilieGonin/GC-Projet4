@@ -5,26 +5,19 @@
 
 using namespace std;
 
-int callback(void* data, int argc, char** argv, char** azColName) {
+int callback(void* datas, int argc, char** argv, char** azColName) {
 	int i;
-	std::vector<Element>* p_data = static_cast<std::vector<Element>*>(data);
+	vector<vector<Element>>* p_datas = static_cast<vector<vector<Element>>*>(datas);
+	vector<Element> data;
 
 	for (i = 0; i < argc; i++) {
 		Element element;
-		element.name = std::string(azColName[i]);
-		element.data = std::string(argv[i]);
-		p_data->push_back(element);
-
-		if (std::string(azColName[i]) != "ID") {
-			if (std::string(azColName[i]) == "QUANTITY") {
-				cout << " (x" << argv[i] << ")";
-			}
-			else {
-				cout << "- " << argv[i];
-			}
-			//printf("%s\n", argv[i]);
-		}
+		element.name = string(azColName[i]);
+		element.data = string(argv[i]);
+		data.push_back(element);
 	}
+
+	p_datas->push_back(data);
 
 	printf("\n");
 	return 0;
@@ -42,12 +35,12 @@ void SQL(sqlite3* db, const char* sql) {
 	}
 }
 
-std::vector<Element> dataSQL(sqlite3* db, const char* sql) {
-	std::vector<Element> data;
+std::vector<std::vector<Element>> dataSQL(sqlite3* db, const char* sql) {
+	std::vector<std::vector<Element>> datas;
 	char* error = 0;
-	int rc = sqlite3_exec(db, sql, callback, &data, &error);
+	int rc = sqlite3_exec(db, sql, callback, &datas, &error);
 
-	return data;
+	return datas;
 }
 
 sqlite3* createDatabase() {

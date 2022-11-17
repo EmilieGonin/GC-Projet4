@@ -7,16 +7,23 @@ Baby createBaby(sqlite3* db) {
 	//On va chercher 
 
 	const char* sql = "SELECT * FROM BABIES";
-	std::vector<Element> data = dataSQL(db, sql);
-	bool existingBaby = data.size();
+	vector<vector<Element>> datas = dataSQL(db, sql);
+	bool existingBaby = datas.size();
 
 	if (existingBaby) {
 		cout << "Baby found !\n";
-		min_quantity = stoi(data[1].data);
-		bottle_quantity = stoi(data[2].data);
-		take = stoi(data[3].data);
-		name = data[4].data;
-		cout << name;
+		min_quantity = stoi(datas[0][1].data);
+		take = stoi(datas[0][2].data);
+		bottle_quantity = stoi(datas[0][3].data);
+		name = datas[0][4].data;
+
+		for (int i = 0; i < datas.size(); i++)
+		{
+			for (int j = 0; j < datas[i].size(); j++) {
+				cout << datas[i][j].name
+					<< " : " << datas[i][j].data << "\n";
+			}
+		}
 	}
 	else {
 		cout << "Hello ! What is the name of your baby ? ";
@@ -62,21 +69,21 @@ Bottle createBottle(Baby* baby) {
 List createList(sqlite3* db) {
 	int currentMilk;
 
-	const char* sql = "SELECT * FROM LIST";
-	std::vector<Element> data = dataSQL(db, sql);
-	bool existingList = data.size();
+	//const char* sql = "SELECT * FROM LIST";
+	//vector<vector<Element>> datas = dataSQL(db, sql);
+	//bool existingList = datas.size();
 
-	if (existingList) {
-		cout << "List found !\n";
-		for (int i = 0; i < existingList; i++)
-		{
-			cout << data[i].data;
-		}
-		cout << "\nEnd of list";
-	}
-	else {
-		cout << "List not found !\n";
-	}
+	//if (existingList) {
+	//	cout << "List found !\n";
+	//	for (int i = 0; i < existingList; i++)
+	//	{
+	//		//cout << datas[i].name << "\n" << data[i].data;
+	//	}
+	//	cout << "\nEnd of list";
+	//}
+	//else {
+	//	cout << "List not found !\n";
+	//}
 
 	cout << "Enter your current stock of milk : ";
 	cin >> currentMilk;

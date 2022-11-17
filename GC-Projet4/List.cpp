@@ -47,8 +47,8 @@ void List::addItem(sqlite3* db) {
 	SQL(db, sql.c_str());
 }
 
-std::vector<Element> List::getItems(sqlite3* db) {
+vector<vector<Element>> List::getItems(sqlite3* db) {
 	const char* sql = "SELECT * FROM LIST";
-	std::vector<Element> data = dataSQL(db, sql);
-	return data;
+	vector<vector<Element>> datas = dataSQL(db, sql);
+	return datas;
 }
