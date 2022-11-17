@@ -17,6 +17,6 @@ public:
 	int getCurrentMilk();
 	int getMilkToBuy(int);
 	void addItem(sqlite3*);
-	vector<vector<Element>> getItems(sqlite3*);
+	void getItems(sqlite3*);
 };
 

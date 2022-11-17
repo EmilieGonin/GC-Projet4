@@ -38,17 +38,24 @@ void List::addItem(sqlite3* db) {
 
 	std::cout << "Item name : ";
 	std::cin >> name;
-	std::cout << "Name : " << name << "\nItem quantity : ";
+	std::cout << "Item quantity : ";
 	std::cin >> quantity;
-	std::cout << "Quantity : " << quantity << "\n";
 
 	std::string sql = std::string("INSERT INTO LIST(NAME,QUANTITY) VALUES ('" + name + "', " + std::to_string(quantity) + ");");
 
 	SQL(db, sql.c_str());
+	cout << "----------" << endl;
 }
 
-vector<vector<Element>> List::getItems(sqlite3* db) {
+void List::getItems(sqlite3* db) {
 	const char* sql = "SELECT * FROM LIST";
 	vector<vector<Element>> datas = dataSQL(db, sql);
-	return datas;
+	
+	for (int i = 0; i < datas.size(); i++)
+	{
+		for (int j = 0; j < datas[i].size(); j++) {
+			cout << datas[i][j].name
+				<< " : " << datas[i][j].data << endl;
+		}
+	}
 }

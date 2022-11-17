@@ -19,16 +19,16 @@ int main()
 	Baby baby = createBaby(db);
 
 	//Le parent utilise la fonctionnalité de liste
-	cout << "Checking for list...\n";
+	cout << "Checking for list...";
 	List list = createList(db);
 
 	//Le parent ajoute un item dans la liste
-	//cout << "Adding item...";
-	//list.addItem(db);
+	cout << "Adding item...\n";
+	list.addItem(db);
 
 	//Le parent veut afficher la liste
-	//cout << "Fetching items...";
-	//list.getItems(db);
+	cout << "Fetching items...";
+	list.getItems(db);
 	//cout << "Milk to Buy : " << list.getMilkToBuy(baby.getWeeklyMilkQuantity()) << "\n";
 
 	//Le parent crée un biberon (heures de prise + quantité de lait ingéré)
@@ -45,8 +45,9 @@ int main()
 	//Le bébé regurgite
 	cout << "Regurgitating...\n";
 	bottle.regurgitate();
-	cout << "\nQuantity after regurgitate: " << bottle.baby->getDrankQuantity()
-		<< "\nWeekly Milk Quantity : " << bottle.baby->getWeeklyMilkQuantity();
+	cout << "\nQuantity after regurgitate: " << bottle.baby->getDrankQuantity() << "\n----------" << endl;
+	
+	//cout << "\nWeekly Milk Quantity : " << bottle.baby->getWeeklyMilkQuantity();
 
 	sqlite3_close(db);
 	return 0;
