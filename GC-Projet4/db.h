@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//structure utilisée pour stocker les datas fetch de la database
 struct Element {
 	string name;
 	string data;

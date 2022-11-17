@@ -4,12 +4,12 @@ Baby createBaby(sqlite3* db) {
 	string name;
 	int min_quantity, bottle_quantity, take;
 
-	//On va chercher 
-
+	//On va chercher les infos dans la database
 	const char* sql = "SELECT * FROM BABIES";
 	vector<vector<Element>> datas = dataSQL(db, sql);
 	bool existingBaby = datas.size();
 
+	//Si les bébés existent, on récupère les données
 	if (existingBaby) {
 		cout << "Baby found !\n";
 		min_quantity = stoi(datas[0][1].data);
@@ -25,10 +25,20 @@ Baby createBaby(sqlite3* db) {
 			}
 		}
 	}
+	//Sinon, on créé un nouveau bébé avec des input utilisateurs
 	else {
 		cout << "Hello ! What is the name of your baby ? ";
 		cin >> name;
-		cout << "What a cute name ! Now, enter the minimum quantity the baby must drink each time : ";
+
+		//Easter Egg
+		if (name == "Emilie" || name == "Hugo" || name == "Jimmy" || name == "Tom") {
+			cout << "This name is just perfect ! ";
+		}
+		else if (name == "Leann") {
+			cout << "Wow ! Like the superstar ??! ";
+		}
+
+		cout << "Now, enter the minimum quantity the baby must drink each time : ";
 		cin >> min_quantity;
 		cout << "Now, enter the number of bottle your baby needs to take : ";
 		cin >> take;
@@ -68,23 +78,23 @@ Bottle createBottle(sqlite3* db, Baby* baby) {
 	cout << "----------" << endl;
 	Bottle bottle(quantity, hour, interval, baby);
 	return bottle;
-	/* quantity doit être entre min_quantity et bottle_quantity
-	hour doit être entre 0 et 23
-	minutes doit être entre 0 et 59*/
 }
 
 List createList(sqlite3* db) {
 	int currentMilk;
 
+	//On va chercher les infos dans la database
 	const char* sql = "SELECT * FROM LIST";
 	vector<vector<Element>> datas = dataSQL(db, sql);
 	bool existingList = datas.size();
 
+	//Si on trouve des infos, on récupère celles du lait possédé par l'utilisateur
 	if (existingList) {
 		cout << "List found !\n";
 		currentMilk = stoi(datas[0][2].data);
 		cout << "currentMilk : " << currentMilk << endl;
 	}
+	//Sinon, on demande la quantité de lait possédé par l'utilisateur
 	else {
 		cout << "List not found ! Enter your current stock of milk : ";
 		cin >> currentMilk;

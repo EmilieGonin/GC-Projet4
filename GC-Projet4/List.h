@@ -6,9 +6,8 @@
 class List
 {
 protected:
-	int currentMilk;
-	bool warning;
-	//std::vector<std::vector> items;
+	int currentMilk; //lait possédé par l'utilisateur
+	bool warning; //si l'alerte doit être affichée (lait insuffisant pour les 7 prochains jours)
 public:
 	std::string warning_message;
 	List();

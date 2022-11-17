@@ -7,16 +7,20 @@ using namespace std;
 
 int callback(void* datas, int argc, char** argv, char** azColName) {
 	int i;
+	//On crée une variable qui va copier void* datas dans un autre type
 	vector<vector<Element>>* p_datas = static_cast<vector<vector<Element>>*>(datas);
 	vector<Element> data;
 
 	for (i = 0; i < argc; i++) {
+		//On stocke chaque champs des données dans la structure
 		Element element;
 		element.name = string(azColName[i]);
 		element.data = string(argv[i]);
+		//On envoie la structure dans un vecteur
 		data.push_back(element);
 	}
 
+	//On renvoie ce vecteur dans un vecteur de vecteur
 	p_datas->push_back(data);
 
 	printf("\n");
