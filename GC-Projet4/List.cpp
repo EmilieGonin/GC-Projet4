@@ -42,12 +42,13 @@ void List::addItem(sqlite3* db) {
 	std::cin >> quantity;
 	std::cout << "Quantity : " << quantity << "\n";
 
-	std::string sql = std::string("INSERT INTO ITEMS(NAME,QUANTITY) VALUES ('" + name + "', " + std::to_string(quantity) + ");");
+	std::string sql = std::string("INSERT INTO LIST(NAME,QUANTITY) VALUES ('" + name + "', " + std::to_string(quantity) + ");");
 
 	SQL(db, sql.c_str());
 }
 
-void List::getItems(sqlite3* db) {
-	const char* sql = "SELECT * FROM ITEMS";
-	dataSQL(db, sql);
+std::vector<Element> List::getItems(sqlite3* db) {
+	const char* sql = "SELECT * FROM LIST";
+	std::vector<Element> data = dataSQL(db, sql);
+	return data;
 }
