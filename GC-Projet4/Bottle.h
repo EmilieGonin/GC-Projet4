@@ -12,9 +12,9 @@ class Bottle
 protected:
 	int quantity; //quantité bu
 	int timer;
-	int hour;
-	int interval;
-	bool regurgitated;
+	int hour; //heure de prise
+	int interval; //interval choisi pour l'alarme
+	bool regurgitated; //si le biberon est regurgité
 
 public:
 	Bottle(int, int, int, Baby*);
@@ -23,6 +23,3 @@ public:
 	void show();
 	void regurgitate();
 };
-
-//biberon bu en entier ? oui alors quantity = bottle_quantity
-//biberon créé -> déduire bottle_quantity de la liste de course
