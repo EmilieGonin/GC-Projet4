@@ -9,22 +9,23 @@ class Window
 {
 public:
 	bool init();
-	bool loadMedia();
 	void destroy();
-	void closeWindow();
-	bool draw();
-	bool refreshRender();
+	int WindowEvent();
+	bool homeView();
+	bool view2();
+	bool refreshRender(); 
+	bool renderText(const std::string& font_path);
 	Window();
 	~Window();
+
+	bool running;
 
 private:
 	bool succes;
 	//Screen dimension constants
-	const int SCREEN_WIDTH = 600;
-	const int SCREEN_HEIGHT = 600;
+	const int WINDOW_WIDTH = 600;
+	const int WINDOW_HEIGHT = 600;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	SDL_Surface* surface;
-
+	
 };
-

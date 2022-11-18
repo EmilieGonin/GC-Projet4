@@ -3,10 +3,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h";
+#include "window.h"
 #undef main //remove _main function from SDL cause it breaks everything
 
-int main() 
-{            
+int main()
+{
+	SDL_Event event;
+	Window window ;
+
+	window.init();
+	int gradx = 0;
+	int grady = 0;
+
+	window.homeView();
+
+	while (window.running)
+	{
+		window.WindowEvent();
+		window.renderText("/Roboto/Robot-Bold");
+		window.refreshRender();
+    
 	//Création base de données
 	cout << "Loading database...\n";
 	sqlite3* db = createDatabase();
@@ -46,5 +62,7 @@ int main()
 
 	//On referme la database
 	sqlite3_close(db);
-	return 0;
+  }
+  window.destroy();
+  return 0;
 }
